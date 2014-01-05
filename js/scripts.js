@@ -30,18 +30,21 @@ jQuery(document).ready(function ($) {
         }
     });
 
-    function goToByScroll(dataslide) {
+    function goToByScroll(dataslide, direction) {
+        var padding = direction > 0 ? 1: -1;
         htmlbody.animate({
-            scrollTop: $('.slide[data-slide="' + dataslide + '"]').offset().top
+            scrollTop: $('.slide[data-slide="' + dataslide + '"]').offset().top+padding+"px"
         }, 2000, 'easeInOutQuint');
     }
 
 
 
     links.click(function (e) {
+        var new_index = $(e.target).attr("data-slide");
+        var old_index = $('.active').attr("data-slide");
         e.preventDefault();
         dataslide = $(this).attr('data-slide');
-        goToByScroll(dataslide);
+        goToByScroll(dataslide, new_index - old_index);
     });
 
     button.click(function (e) {
